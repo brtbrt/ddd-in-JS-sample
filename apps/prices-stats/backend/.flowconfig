@@ -1,0 +1,12 @@
+[ignore]
+.*/node_modules/.*
+dist/.*
+webpack.config.js
+
+[libs]
+flow-typed
+
+[declarations]
+
+[options]
+munge_underscores=true

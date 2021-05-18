@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app-prices-stats-backend:
+    build: ./apps/prices-stats/backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./apps/prices-stats/backend:/app/app
+      - ./node-modules:/app/node-modules
+      - ./package.json:/app/package.json
+      - ./yarn.lock:/app/yarn.lock

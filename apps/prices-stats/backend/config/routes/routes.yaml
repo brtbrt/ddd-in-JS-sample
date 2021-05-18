@@ -1,0 +1,9 @@
+services:
+  Controllers.status.get:
+    class: ../../src/controllers/StatusGetController.js
+    tags:
+      - { name: route, attributes: {method: 'GET', path: '/status'} }
+  Controllers.root.home:
+    class: ../../src/controllers/HomeGetController.js
+    tags:
+      - { name: route, attributes: {method: 'GET', path: '/'} }
