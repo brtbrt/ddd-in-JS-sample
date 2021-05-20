@@ -1,8 +1,8 @@
 services:
-  Apps.route.test:
-    class: TstContext.js
-    tags:
-        - { name: repository }
+#  Apps.route.test:
+#    class: TstContext.js
+#    tags:
+#        - { name: repository }
 
 #  Apps.mooc.controllers.CoursePutController:
 #    class: ../../controllers/CoursePutController
@@ -12,6 +12,3 @@ services:
 #    class: ../../controllers/StatusGetController
 #    arguments: []
 #
-#  Apps.mooc.controllers.CoursesCounterGetController:
-#    class: ../../controllers/CoursesCounterGetController
-#    arguments: ["@Shared.QueryBus"]

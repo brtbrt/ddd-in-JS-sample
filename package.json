@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/prices-stats/backend",
+    "apps/*/frontend",
+    "Contexts/*"
+  ],
   "devDependencies": {
     "flow": "^0.2.3",
     "flow-bin": "^0.151.0"

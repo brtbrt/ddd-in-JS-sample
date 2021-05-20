@@ -6,7 +6,10 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./apps/prices-stats/backend:/app/app
-      - ./node-modules:/app/node-modules
+      - ./apps/prices-stats/backend:/app/apps/prices-stats/backend
+      - ./Contexts:/app/Contexts
       - ./package.json:/app/package.json
       - ./yarn.lock:/app/yarn.lock
+      - ./.flowconfig:/app/.flowconfig
+      - ./flow-typed:/app/flow-typed
+      - ./node_modules:/app/node_modules

@@ -1,0 +1,6 @@
+services:
+  PricesStats.articlesCounter.FindArticlesCounterQueryHandler:
+    class: ../../../Contexts/PricesStats/ArticlesCounter/application/Find/FindArticlesCounterQueryHandler
+#    arguments: [ "@Mooc.coursesCounter.CoursesCounterFinder" ]
+    tags:
+      - { name: 'queryHandler' }

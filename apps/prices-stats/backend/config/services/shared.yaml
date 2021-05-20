@@ -1,0 +1,8 @@
+services:
+  Shared.QueryBus:
+    class: ../../Contexts/Shared/infrastructure/QueryBus/InMemoryQueryBus
+    arguments: [ '@Shared.QueryHandlersInformation' ]
+
+  Shared.QueryHandlersInformation:
+    class: ../../Contexts/Shared/infrastructure/QueryBus/QueryHandlersInformation
+    arguments: ['!tagged queryHandler']

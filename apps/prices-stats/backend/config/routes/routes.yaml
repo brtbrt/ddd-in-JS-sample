@@ -7,3 +7,8 @@ services:
     class: ../../src/controllers/HomeGetController.js
     tags:
       - { name: route, attributes: {method: 'GET', path: '/'} }
+  Controllers.counter.get:
+    class: ../../src/controllers/CounterGetController.js
+    arguments: ["@Shared.QueryBus"]
+    tags:
+      - { name: route, attributes: {method: 'GET', path: '/counter'} }
