@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "babel --presets @babel/preset-flow -d dist src/",
-    "build": "babel --config-file ./.babelrc src/ -d dist/src && babel --config-file ./.babelrc Contexts/ -d dist/Contexts && cp -R config dist/config",
+    "build": "babel --config-file ./.babelrc src/ -d dist/src && babel --config-file ./.babelrc Contexts/ -d dist/Contexts && cp -Rf config dist/",
     "watch": "cross-env NODE_ENV=development nodemon -w Contexts -w src/ --exec \"yarn build && node dist/src/index.js\""
   },
   "devDependencies": {

@@ -4,6 +4,7 @@ import { Controller } from './Controller';
 import type { QueryBus } from 'context-shared';
 import {FindArticlesCounterQuery} from "../../Contexts/PricesStats/ArticlesCounter/application/Find/FindArticlesCounterQuery";
 import {FindArticlesCounterResponse} from "../../Contexts/PricesStats/ArticlesCounter/application/Find/FindArticlesCounterResponse";
+import {ArticlesCounterNotExist} from "../../Contexts/PricesStats/ArticlesCounter/domain/ArticlesCounterNotExist";
 
 export default class CounterGetController implements Controller {
   #queryBus: QueryBus;
@@ -19,11 +20,12 @@ export default class CounterGetController implements Controller {
 
       res.status(httpStatus.OK).json(response.total);
     } catch (e) {
-      // if (e instanceof CoursesCounterNotExist) {
-      //   res.status(httpStatus.NOT_FOUND).send();
-      // } else {
+      if (e instanceof ArticlesCounterNotExist) {
+        res.status(httpStatus.NOT_FOUND).send();
+      } else {
+        console.log(e);
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
-      // }
+      }
     }
   }
 }

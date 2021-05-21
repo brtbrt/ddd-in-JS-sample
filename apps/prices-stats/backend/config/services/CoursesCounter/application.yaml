@@ -1,6 +1,12 @@
 services:
+  PricesStats.articlesCounter.ArticlesCounterFinder:
+    class: ../../../Contexts/PricesStats/ArticlesCounter/application/Find/ArticlesCounterFinder
+    arguments: ["@PricesStats.articlesCounter.ArticlesCounterRepository"]
   PricesStats.articlesCounter.FindArticlesCounterQueryHandler:
     class: ../../../Contexts/PricesStats/ArticlesCounter/application/Find/FindArticlesCounterQueryHandler
-#    arguments: [ "@Mooc.coursesCounter.CoursesCounterFinder" ]
+    arguments: [ "@PricesStats.articlesCounter.ArticlesCounterFinder" ]
     tags:
       - { name: 'queryHandler' }
+  PricesStats.articlesCounter.ArticlesCounterRepository:
+    class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/persistence/postgresql/PostgresqlCoursesCounterRepository
+#    arguments: [ "@Shared.ConnectionManager" ]

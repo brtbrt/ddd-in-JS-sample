@@ -1,13 +1,12 @@
 {
-  "name": "context-shared",
+  "name": "context-prices-stats",
   "main": "index.js",
   "version": "1.0.0",
   "author": "Matteo Bertamini<bertamini.matteo@gmail.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "uuid": "^8.3.2",
-    "uuid-validate": "^0.0.3"
+    "pg": "^8.6.0"
   },
   "devDependencies": {
     "flow-bin": "^0.151.0",
