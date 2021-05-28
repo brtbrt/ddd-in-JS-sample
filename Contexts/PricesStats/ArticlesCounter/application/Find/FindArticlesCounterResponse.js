@@ -1,6 +1,6 @@
 // @flow
 
-import type {Response} from "../../../../Shared/domain/Response";
+import type {Response} from "context-shared/domain/Response";
 
 export class FindArticlesCounterResponse implements Response {
     #total: number;

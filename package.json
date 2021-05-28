@@ -6,6 +6,7 @@
   "private": true,
   "workspaces": [
     "apps/prices-stats/backend",
+    "apps/backoffice/backend",
     "apps/*/frontend",
     "Contexts/*"
   ],

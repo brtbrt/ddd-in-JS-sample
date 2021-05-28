@@ -1,7 +1,7 @@
 // @flow
 
-import type {Query} from "../../../../Shared/domain/Query";
-import type {QueryHandler} from "../../../../Shared/domain/QueryHandler";
+import type {Query} from "context-shared/domain/Query";
+import type {QueryHandler} from "context-shared/domain/QueryHandler";
 import {FindArticlesCounterQuery} from "./FindArticlesCounterQuery";
 import {FindArticlesCounterResponse} from "./FindArticlesCounterResponse";
 import {ArticlesCounterFinder} from "./ArticlesCounterFinder";

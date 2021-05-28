@@ -1,5 +1,5 @@
 {
-  "name": "prices-stats-backend",
+  "name": "backoffice-backend",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "Matteo Bertamini<bertamini.matteo@gmail.com>",

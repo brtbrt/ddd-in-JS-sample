@@ -1,0 +1,15 @@
+{
+  "name": "context-backoffice",
+  "main": "index.js",
+  "version": "1.0.0",
+  "author": "Matteo Bertamini<bertamini.matteo@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "barcode-validator": "^1.0.2"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.151.0",
+    "flow-typed": "^3.3.1"
+  }
+}

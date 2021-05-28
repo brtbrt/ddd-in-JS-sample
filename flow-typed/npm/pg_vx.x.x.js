@@ -22,7 +22,7 @@ export interface Client {
 declare module 'pg' {
   declare interface Client {
     connect(): void;
-    query(query: string): any;
+    query(query: string, values: ?Array<string>): any;
     constructor(config: {    user: string,
       host: string,
       database: string,

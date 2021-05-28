@@ -1993,6 +1993,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
+barcode-validator@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/barcode-validator/-/barcode-validator-1.0.2.tgz#2b98d31b97e72e693f0af7aa84758faa2c4560f1"
+  integrity sha512-MZ6nkU/MzEUmdA1mUU5s6tXPP/1dbfuYFx4iUmPhbMLKYMHHr8DwE/PgTgnS5MXS4JQN8kliGeP7h+6tLwVGBA==
+
 base@^0.11.1:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/base/-/base-0.11.2.tgz#7bde5ced145b6d551a90db87f83c558b4eb48a8f"

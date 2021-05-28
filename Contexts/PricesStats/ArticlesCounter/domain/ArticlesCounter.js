@@ -1,8 +1,8 @@
 // @flow
 
-import type {AggregateRoot} from "../../../Shared/domain/AggregateRoot";
-import {AggregateEvents} from "../../../Shared/domain/AggregateRoot";
-import {DomainEvent} from "../../../Shared/domain/DomainEvent";
+import type {AggregateRoot} from "context-shared/domain/AggregateRoot";
+import {AggregateEvents} from "context-shared/domain/AggregateRoot";
+import {DomainEvent} from "context-shared/domain/DomainEvent";
 import {ArticlesCounterId} from "./ArticlesCounterId";
 import ArticlesCounterTotal from "./ArticlesCounterTotal.js";
 
