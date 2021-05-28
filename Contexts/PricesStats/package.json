@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "convict": "^6.1.0",
     "pg": "^8.6.0"
   },
   "devDependencies": {

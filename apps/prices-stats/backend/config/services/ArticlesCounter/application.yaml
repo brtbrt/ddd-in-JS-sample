@@ -8,5 +8,6 @@ services:
     tags:
       - { name: 'queryHandler' }
   PricesStats.articlesCounter.ArticlesCounterRepository:
-    class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/persistence/postgresql/PostgresqlCoursesCounterRepository
-#    arguments: [ "@Shared.ConnectionManager" ]
+    class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/persistence/postgresql/PostgresqlArticlesCounterRepository
+    arguments: ["@Shared.DBConnectionManager"]
+

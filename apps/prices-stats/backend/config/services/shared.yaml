@@ -6,3 +6,14 @@ services:
   Shared.QueryHandlersInformation:
     class: ../../Contexts/Shared/infrastructure/QueryBus/QueryHandlersInformation
     arguments: ['!tagged queryHandler']
+
+  Shared.PostgresConfig:
+    factory:
+      class: ../../Contexts/PricesStats/Shared/infrastructure/persistence/postgresql/PostgresqlConfigFactory
+      method: 'createConfig'
+
+  Shared.DBConnectionManager:
+    factory:
+      class: ../../Contexts/Shared/infrastructure/persistence/postgresql/PostgresqlClientFactory
+      method: 'createClient'
+    arguments: ['prices-stats-backend', '@Shared.PostgresConfig']

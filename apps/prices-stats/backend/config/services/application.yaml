@@ -2,7 +2,7 @@ imports:
   - { resource: ./apps/application.yaml }
   - { resource: ./shared.yaml }
   - { resource: ../routes/routes.yaml }
-  - { resource: ./CoursesCounter/application.yaml }
+  - { resource: ./ArticlesCounter/application.yaml }
 #  - { resource: ./Courses/application.yaml }
 #  - { resource: ./Notifications/application.yaml }
 #  - { resource: ./Shared/application.yaml }

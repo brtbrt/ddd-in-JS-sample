@@ -9,6 +9,9 @@
     "apps/*/frontend",
     "Contexts/*"
   ],
+  "scripts": {
+    "watch-app-prices-stats-backend": "cd apps/prices-stats/backend && yarn watch"
+  },
   "devDependencies": {
     "flow": "^0.2.3",
     "flow-bin": "^0.151.0"
