@@ -1,0 +1,4 @@
+imports:
+  - { resource: ./shared.yaml }
+  - { resource: ../routes/routes.yaml }
+  - { resource: ./BackofficeArticles/application.yaml }

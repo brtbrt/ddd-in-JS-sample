@@ -52,11 +52,11 @@ export default class BackofficeArticle implements AggregateRoot {
         return new BackofficeArticle(id, name, upc);
     }
 
-    static fromPrimitives(data: { id: string; name: string, gtin: string}): BackofficeArticle {
+    static fromPrimitives(data: { id: string; name: string, upc: string}): BackofficeArticle {
         return new BackofficeArticle(
             new BackofficeArticleId(data.id),
             new BackofficeArticleName(data.name),
-            new BackofficeArticleUpc(data.gtin),
+            new BackofficeArticleUpc(data.upc),
         );
     }
 }

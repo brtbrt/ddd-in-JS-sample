@@ -5,7 +5,7 @@ import {CreateBackofficeArticleCommand} from "./CreateBackofficeArticleCommand";
 import {BackofficeArticleId} from "../domain/BackofficeArticleId";
 import {BackofficeArticleName} from "../domain/BackofficeArticleName";
 import {BackofficeArticleUpc} from "../domain/BackofficeArticleUpc";
-import {BackofficeArticleCreator} from "./ArticleCreator";
+import {BackofficeArticleCreator} from "./BackofficeArticleCreator";
 import type {Command} from "context-shared/domain/Command";
 
 export class CreateBackofficeArticleCommandHandler implements CommandHandler<CreateBackofficeArticleCommand> {

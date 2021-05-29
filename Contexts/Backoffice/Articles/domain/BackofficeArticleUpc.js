@@ -21,4 +21,8 @@ export class BackofficeArticleUpc {
         }
     }
 
+
+    toString(): string {
+        return this.#value;
+    }
 }

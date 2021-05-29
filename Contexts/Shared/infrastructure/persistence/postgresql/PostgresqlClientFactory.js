@@ -22,8 +22,11 @@ export default class PostgresqlClientFactory {
 
     static async _createAndConnectClient(config: PostgresConfig): Promise<Client> {
         const client = new Client(config);
-        await client.connect();
-
+        try{
+            await client.connect();
+        } catch(e) {
+            console.log(e);
+        }
         return client;
     }
 }

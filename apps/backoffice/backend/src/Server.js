@@ -28,7 +28,6 @@ export class Server {
         this.#express.use(router);
         //todo continue here so as to make the first controller work :) (the PUT). Then, connect the controller to the command bus to make it fully work!
         // Then, create the domain event infrastructure so as to connect the two bounded contexts and increment the counter
-        this.#express.get('/', (req, res) => {res.send('ciao!!!');});
 
         registerRoutes(router);
     }

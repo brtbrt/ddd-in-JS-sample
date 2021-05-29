@@ -1,0 +1,17 @@
+services:
+  Shared.CommandHandlersInformation:
+    class: ../../Contexts/Shared/infrastructure/CommandBus/CommandHandlersInformation
+    arguments: ['!tagged commandHandler']
+  Shared.CommandBus:
+    class: ../../Contexts/Shared/infrastructure/CommandBus/InMemoryCommandBus
+    arguments: ['@Shared.CommandHandlersInformation']
+
+  Shared.PostgresConfig:
+    factory:
+      class: ../../Contexts/Backoffice/Shared/infrastructure/persistence/postgresql/PostgresqlConfigFactory
+      method: 'createConfig'
+  Shared.DBConnectionManager:
+    factory:
+      class: ../../Contexts/Shared/infrastructure/persistence/postgresql/PostgresqlClientFactory
+      method: 'createClient'
+    arguments: ['backoffice-backend', '@Shared.PostgresConfig']

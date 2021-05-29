@@ -5,17 +5,17 @@ import type { Controller } from './controllers/Controller';
 
 export function registerRoutes(router: express$Router<any, any>) {
     const taggedServices = container.findTaggedServiceIds('route');
-
     for (const definition of taggedServices.values()) {
         for (const tag of definition.tags) {
-            console.log(taggedServices.get());
-
+console.log('prima >>>>>>');
+console.log(definition);
             register(
                 tag.attributes.get('path'),
                 tag.attributes.get('method').toLowerCase(),
                 router,
                 container.instanceManager.getInstanceFromDefinition(definition)
             );
+console.log('dopo >>>>>>');
         }
     }
 }

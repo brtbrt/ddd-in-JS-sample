@@ -8,6 +8,8 @@ export class CommandHandlersInformation {
     #commandHandlersMap: Map<Command, CommandHandler<Command>>;
 
     constructor(commandHandlers: Array<CommandHandler<Command>>) {
+        console.log('------');
+        console.log(commandHandlers);
         this.#commandHandlersMap = this._formatHandlers(commandHandlers);
     }
 

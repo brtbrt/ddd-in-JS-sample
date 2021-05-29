@@ -1,5 +1,4 @@
 imports:
-  - { resource: ./apps/application.yaml }
   - { resource: ./shared.yaml }
   - { resource: ../routes/routes.yaml }
   - { resource: ./ArticlesCounter/application.yaml }

@@ -1,11 +1,11 @@
 // @flow
 
-import BackofficeArticle
-    from "../../../../apps/prices-stats/backend/Contexts/Backoffice/Articles/domain/BackofficeArticle";
 import type {BackofficeArticleRepository} from "../domain/BackofficeArticleRepository";
 import {BackofficeArticleId} from "../domain/BackofficeArticleId";
 import {BackofficeArticleName} from "../domain/BackofficeArticleName";
 import {BackofficeArticleUpc} from "../domain/BackofficeArticleUpc";
+import BackofficeArticle from "../domain/BackofficeArticle";
+import {BackofficeArticleAlreadyExists} from "../domain/BackofficeArticleAlreadyExists";
 
 type Params = {
     articleId: BackofficeArticleId;
@@ -24,6 +24,13 @@ export class BackofficeArticleCreator {
     }
 
     async run({ articleId, articleName, articleUpc }: Params): Promise<void> {
+
+        const backofficeArticleWithSameId = await this.#repository.getByBackofficeArticleId(articleId);
+
+        if (backofficeArticleWithSameId !== null) {
+            throw new BackofficeArticleAlreadyExists(articleId.toString());
+        }
+
         const course = BackofficeArticle.create(articleId, articleName, articleUpc);
 
         await this.#repository.save(course);

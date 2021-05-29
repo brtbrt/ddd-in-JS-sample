@@ -1,0 +1,10 @@
+services:
+  Controllers.status.get:
+    class: ../../src/controllers/StatusGetController.js
+    tags:
+      - { name: route, attributes: {method: 'GET', path: '/status'} }
+  Controllers.backofficearticle.post:
+    class: ../../src/controllers/BackofficeArticlePostController.js
+    arguments: ["@Shared.CommandBus"]
+    tags:
+      - { name: route, attributes: {method: 'POST', path: '/articles/:id'} }

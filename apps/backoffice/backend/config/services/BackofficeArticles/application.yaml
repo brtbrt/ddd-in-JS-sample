@@ -1,0 +1,16 @@
+services:
+  Backoffice.articles.ArticleCreator:
+    class: ../../../Contexts/Backoffice/Articles/application/BackofficeArticleCreator
+    arguments: ["@Backoffice.articles.BackofficeArticlesRepository"]
+  Backoffice.articles.BackofficeArticlesRepository:
+    class: ../../../Contexts/Backoffice/Articles/infrastructure/persistence/postgresql/PostgresqlBackofficeArticlesRepository
+    arguments: [ "@Shared.DBConnectionManager" ]
+  Backoffice.articles.ArticleCreator.Handler:
+    class: ../../../Contexts/Backoffice/Articles/application/CreateBackofficeArticleCommandHandler
+    arguments: [ "@Backoffice.articles.ArticleCreator" ]
+    tags:
+      - { name: 'commandHandler' }
+
+
+
+
