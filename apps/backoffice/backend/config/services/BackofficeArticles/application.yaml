@@ -1,7 +1,7 @@
 services:
   Backoffice.articles.ArticleCreator:
     class: ../../../Contexts/Backoffice/Articles/application/BackofficeArticleCreator
-    arguments: ["@Backoffice.articles.BackofficeArticlesRepository"]
+    arguments: ["@Backoffice.articles.BackofficeArticlesRepository", "@Shared.EventBus"]
   Backoffice.articles.BackofficeArticlesRepository:
     class: ../../../Contexts/Backoffice/Articles/infrastructure/persistence/postgresql/PostgresqlBackofficeArticlesRepository
     arguments: [ "@Shared.DBConnectionManager" ]

@@ -15,3 +15,6 @@ services:
       class: ../../Contexts/Shared/infrastructure/persistence/postgresql/PostgresqlClientFactory
       method: 'createClient'
     arguments: ['backoffice-backend', '@Shared.PostgresConfig']
+
+  Shared.EventBus:
+    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus

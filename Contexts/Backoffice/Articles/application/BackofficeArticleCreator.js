@@ -34,7 +34,6 @@ export class BackofficeArticleCreator {
         const course = BackofficeArticle.create(articleId, articleName, articleUpc);
 
         await this.#repository.save(course);
-        // todo continue here :) implement the event bus
-        // await this.#eventBus.publish(course.pullDomainEvents());
+        await this.#eventBus.publish(course.pullDomainEvents());
     }
 }
