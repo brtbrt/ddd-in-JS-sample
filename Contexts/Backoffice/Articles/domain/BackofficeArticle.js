@@ -6,26 +6,29 @@ import {AggregateEvents} from "context-shared/domain/AggregateRoot";
 import {BackofficeArticleId} from "./BackofficeArticleId";
 import {BackofficeArticleName} from "./BackofficeArticleName";
 import {BackofficeArticleUpc} from "./BackofficeArticleUpc";
+import {BackofficeArticleCreatedDomainEvent} from "./BackofficeArticleCreatedDomainEvent";
 
 export default class BackofficeArticle implements AggregateRoot {
     #id: BackofficeArticleId;
     #name: BackofficeArticleName;
     #upc: BackofficeArticleUpc;
 
-    #events: AggregateEvents;
+    #domainEvents: AggregateEvents;
 
     constructor(id: BackofficeArticleId, name: BackofficeArticleName, gtin: BackofficeArticleUpc) {
         this.#id = id;
         this.#name = name;
         this.#upc = gtin;
+
+        this.#domainEvents = new AggregateEvents();
     }
 
     pullDomainEvents(): Array<DomainEvent> {
-        return this.#events.pullDomainEvents();
+        return this.#domainEvents.pullDomainEvents();
     }
 
     record(event: DomainEvent): void {
-        this.#events.record(event);
+        this.#domainEvents.record(event);
     }
 
     get id(): BackofficeArticleId {
@@ -44,12 +47,21 @@ export default class BackofficeArticle implements AggregateRoot {
         return {
             id: this.#id.value,
             name: this.#name.value,
-            gtin: this.#upc.value,
+            upc: this.#upc.value,
         };
     }
 
     static create(id: BackofficeArticleId, name: BackofficeArticleName, upc: BackofficeArticleUpc): BackofficeArticle {
-        return new BackofficeArticle(id, name, upc);
+        const backofficeArticle = new BackofficeArticle(id, name, upc);
+        backofficeArticle.record(
+            new BackofficeArticleCreatedDomainEvent({
+                id: backofficeArticle.id.value,
+                name: backofficeArticle.name.value,
+                upc: backofficeArticle.upc.value
+            })
+        );
+
+        return backofficeArticle;
     }
 
     static fromPrimitives(data: { id: string; name: string, upc: string}): BackofficeArticle {

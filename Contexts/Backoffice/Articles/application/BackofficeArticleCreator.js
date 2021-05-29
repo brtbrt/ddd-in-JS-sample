@@ -6,6 +6,7 @@ import {BackofficeArticleName} from "../domain/BackofficeArticleName";
 import {BackofficeArticleUpc} from "../domain/BackofficeArticleUpc";
 import BackofficeArticle from "../domain/BackofficeArticle";
 import {BackofficeArticleAlreadyExists} from "../domain/BackofficeArticleAlreadyExists";
+import type {EventBus} from "context-shared/domain/EventBus";
 
 type Params = {
     articleId: BackofficeArticleId;
@@ -15,12 +16,11 @@ type Params = {
 
 export class BackofficeArticleCreator {
     #repository: BackofficeArticleRepository;
-    // private eventBus: EventBus;
+    #eventBus: EventBus;
 
-    //, eventBus: EventBus
-    constructor(repository: BackofficeArticleRepository) {
+    constructor(repository: BackofficeArticleRepository, eventBus: EventBus) {
         this.#repository = repository;
-        // this.eventBus = eventBus;
+        this.#eventBus = eventBus;
     }
 
     async run({ articleId, articleName, articleUpc }: Params): Promise<void> {
@@ -34,6 +34,7 @@ export class BackofficeArticleCreator {
         const course = BackofficeArticle.create(articleId, articleName, articleUpc);
 
         await this.#repository.save(course);
-        // await this.eventBus.publish(course.pullDomainEvents());
+        // todo continue here :) implement the event bus
+        // await this.#eventBus.publish(course.pullDomainEvents());
     }
 }

@@ -2,13 +2,17 @@
 
 import { Uuid } from './value-object/Uuid';
 
+
 export class DomainEvent {
-    static EVENT_NAME: string;
     // static fromPrimitives: (...args: any[]) => any;
     #aggregateId: string;
     #eventId: string;
     #occurredOn: Date;
     #eventName: string;
+
+    static get EVENT_NAME(): string {
+        throw new Error('not implemented');
+    }
 
     get aggregateId (): string {
         return this.#aggregateId;
@@ -25,6 +29,7 @@ export class DomainEvent {
     get eventName (): string {
         return this.#eventName;
     }
+
 
     constructor(eventName: string, aggregateId: string, eventId?: string, occurredOn?: Date) {
         this.#aggregateId = aggregateId;

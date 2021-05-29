@@ -45,7 +45,6 @@ export default class PostgresqlBackofficeArticlesRepository implements Backoffic
             console.log(err.stack)
         }
 
-
         return Promise.resolve(null);
     }
 }
