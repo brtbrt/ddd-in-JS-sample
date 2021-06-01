@@ -6,6 +6,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "amqp": "^0.2.7",
+    "amqplib": "^0.8.0",
+    "amqplib-flow": "^1.1.0",
+    "rabbitmq-client": "^2.0.0",
     "uuid": "^8.3.2",
     "uuid-validate": "^0.0.3"
   },

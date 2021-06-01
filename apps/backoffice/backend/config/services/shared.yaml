@@ -18,3 +18,4 @@ services:
 
   Shared.EventBus:
     class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
+    arguments: ['@Backoffice.articles.RabbitMqConfig']

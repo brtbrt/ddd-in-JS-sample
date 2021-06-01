@@ -2,6 +2,7 @@
 
 PRICES_STATS_BACK_NAME := app-prices-stats
 BACKOFFICE_BACK_NAME := app-backoffice
+RABBITMQ_NAME := rabbitmq
 
 .PHONY: up-app-prices-stats-backend
 up-app-prices-stats-backend:
@@ -36,3 +37,10 @@ up-backoffice-backend:
 .PHONY: terminal-backoffice-backend
 terminal-backoffice-backend:
 	@docker-compose exec $(BACKOFFICE_BACK_NAME)-backend bash
+
+
+
+
+.PHONY: terminal-rabbitmq
+terminal-rabbitmq:
+	@docker-compose exec $(RABBITMQ_NAME) bash

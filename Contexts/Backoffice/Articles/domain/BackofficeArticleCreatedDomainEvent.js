@@ -1,6 +1,7 @@
 // @flow
 
 import {DomainEvent} from "context-shared/domain/DomainEvent";
+import type {DomainEventInterface} from "context-shared/domain/DomainEventInterface";
 
 type BackofficeArticleCreatedDomainEventBody = $ReadOnly<{
     name: string;
@@ -9,13 +10,17 @@ type BackofficeArticleCreatedDomainEventBody = $ReadOnly<{
     id: string;
 }>;
 
-export class BackofficeArticleCreatedDomainEvent extends DomainEvent {
+export class BackofficeArticleCreatedDomainEvent extends DomainEvent implements DomainEventInterface {
     #name: string;
     #upc: string;
 
     static get EVENT_NAME(): string {
         return 'course.created';
-    }
+    };
+
+    get EVENT_NAME(): string {
+        return BackofficeArticleCreatedDomainEvent.EVENT_NAME;
+    };
 
     constructor({
                     id,
@@ -32,9 +37,7 @@ export class BackofficeArticleCreatedDomainEvent extends DomainEvent {
     }) {
         super(BackofficeArticleCreatedDomainEvent.EVENT_NAME, id, eventId, occurredOn);
         this.#name = name;
-        console.log('new domain event 3!');
         this.#upc = upc;
-        console.log('new domain event 4!');
     }
 
     toPrimitive(): BackofficeArticleCreatedDomainEventBody {
@@ -47,11 +50,14 @@ export class BackofficeArticleCreatedDomainEvent extends DomainEvent {
     }
 
     static fromPrimitives(
-        aggregateId: string,
-        body: BackofficeArticleCreatedDomainEventBody,
-        eventId: string,
-        occurredOn: Date
-    ): DomainEvent {
+        ...args: any[]
+    ): BackofficeArticleCreatedDomainEvent {
+        const [
+            aggregateId: string,
+            body: BackofficeArticleCreatedDomainEventBody,
+            eventId: string,
+            occurredOn: Date] = args;
+
         return new BackofficeArticleCreatedDomainEvent({
             id: aggregateId,
             name: body.name,
@@ -59,5 +65,9 @@ export class BackofficeArticleCreatedDomainEvent extends DomainEvent {
             eventId,
             occurredOn
         });
+    }
+
+    static fromPrimitives(aggregateId: string, body: BackofficeArticleCreatedDomainEventBody, eventId: string, occurredOn: Date): BackofficeArticleCreatedDomainEvent {
+        return BackofficeArticleCreatedDomainEvent.fromPrimitives(aggregateId, body, eventId, occurredOn);
     }
 }

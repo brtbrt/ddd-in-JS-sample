@@ -10,7 +10,10 @@ services:
     arguments: [ "@Backoffice.articles.ArticleCreator" ]
     tags:
       - { name: 'commandHandler' }
-
+  Backoffice.articles.RabbitMqConfig:
+    factory:
+      class: ../../../Contexts/Backoffice/Articles/infrastructure/EventBus/RabbitMq/RabbitMqConfigFactory
+      method: 'createConfig'
 
 
 

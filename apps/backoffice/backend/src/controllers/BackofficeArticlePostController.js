@@ -15,7 +15,6 @@ export default class BackofficeArticlePostController implements Controller {
 
     async run(req: express$Request, res: express$Response) {
         const id: string = req.params.id;
-        //todo continue here
         const name: string = (req.body: Object).name;
         const upc: string = (req.body: Object).upc;
         const createBackofficeArticleCommand = new CreateBackofficeArticleCommand({ id, name, upc });
@@ -28,6 +27,7 @@ export default class BackofficeArticlePostController implements Controller {
             } else if (error instanceof InvalidArgumentError) {
                 res.status(httpStatus.BAD_REQUEST).send(error.message);
             } else {
+                console.log(error);
                 res.status(httpStatus.INTERNAL_SERVER_ERROR).json(error);
             }
         }

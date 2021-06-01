@@ -5,6 +5,7 @@ webpack.config.js
 
 [libs]
 flow-typed
+node_modules/amqplib-flow/types.js
 
 [declarations]
 
