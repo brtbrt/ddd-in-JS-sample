@@ -8,7 +8,7 @@
   "scripts": {
     "start": "babel --presets @babel/preset-flow -d dist src/",
     "clean-build": "rm -Rf dist/*",
-    "create-build-symlinks": "cd dist && mkdir node_modules && cd node_modules && ln -s ../Contexts/Shared context-shared",
+    "create-build-symlinks": "cd dist && mkdir node_modules && cd node_modules && ln -s ../Contexts/Shared context-shared && ln -s ../Contexts/PricesStats context-prices-stats",
     "build": "yarn clean-build && babel --config-file ./.babelrc src/ -d dist/src && babel --config-file ./.babelrc Contexts/ -d dist/Contexts && cp -Rf config dist/ && yarn create-build-symlinks",
     "watch": "cross-env NODE_ENV=development nodemon -w Contexts -w src/ --exec \"yarn build && node dist/src/index.js\""
   },

@@ -11,3 +11,7 @@ services:
     class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/persistence/postgresql/PostgresqlArticlesCounterRepository
     arguments: ["@Shared.DBConnectionManager"]
 
+  PricesStats.articlesCounter.RabbitMqConfig:
+    factory:
+      class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/EventBus/RabbitMq/RabbitMqConfigFactory
+      method: 'createConfig'

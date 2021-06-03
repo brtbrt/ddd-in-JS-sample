@@ -2,6 +2,7 @@
 
 import {DomainEvent} from "context-shared/domain/DomainEvent";
 import type {DomainEventInterface} from "context-shared/domain/DomainEventInterface";
+import type {PublishableDomainEvent} from "context-shared/domain/PublishableDomainEvent";
 
 type BackofficeArticleCreatedDomainEventBody = $ReadOnly<{
     name: string;
@@ -10,7 +11,7 @@ type BackofficeArticleCreatedDomainEventBody = $ReadOnly<{
     id: string;
 }>;
 
-export class BackofficeArticleCreatedDomainEvent extends DomainEvent implements DomainEventInterface {
+export class BackofficeArticleCreatedDomainEvent extends DomainEvent implements DomainEventInterface, PublishableDomainEvent {
     #name: string;
     #upc: string;
 
@@ -21,6 +22,14 @@ export class BackofficeArticleCreatedDomainEvent extends DomainEvent implements 
     get EVENT_NAME(): string {
         return BackofficeArticleCreatedDomainEvent.EVENT_NAME;
     };
+
+    get name():string {
+        return this.#name;
+    }
+
+    get upc():string {
+        return this.#upc;
+    }
 
     constructor({
                     id,

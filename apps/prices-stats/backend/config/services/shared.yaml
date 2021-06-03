@@ -17,3 +17,7 @@ services:
       class: ../../Contexts/Shared/infrastructure/persistence/postgresql/PostgresqlClientFactory
       method: 'createClient'
     arguments: ['prices-stats-backend', '@Shared.PostgresConfig']
+
+  Shared.EventBus:
+    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
+    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig']

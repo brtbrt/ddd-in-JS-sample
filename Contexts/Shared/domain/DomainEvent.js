@@ -1,6 +1,7 @@
 // @flow
 
 import { Uuid } from './value-object/Uuid';
+import type {DomainEventInterface} from "./DomainEventInterface";
 
 export class DomainEvent {
     #aggregateId: string;
@@ -35,7 +36,9 @@ export class DomainEvent {
         this.#eventName = eventName;
     }
 
-    static fromPrimitives(...args: any[]): DomainEvent {
+    static fromPrimitives(...args: any[]): DomainEventInterface {
         throw new Error('not implemented, use a parent');
     };
 }
+
+export type DomainEventClass = { +EVENT_NAME: string, fromPrimitives(...args: any[]): DomainEventInterface; };

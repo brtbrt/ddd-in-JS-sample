@@ -26,7 +26,7 @@ function register(
   router: express$Router<any, any>,
   controller: Controller
 ) {
-  // $FlowIgnore: accessing the method via objecr prop
+  // $FlowIgnore: accessing the method via object prop
   router[method](routePath, (req: express$Request, res: express$Response) =>
     controller.run(req, res)
   );

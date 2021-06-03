@@ -1,6 +1,9 @@
 // @flow
 import { Server } from './Server';
 import container from './services';
+import type {EventBus} from "context-shared/domain/EventBus";
+import {DomainEventMapping} from "context-shared/infrastructure/EventBus/RabbitMq/DomainEventMapping";
+import {IncrementCounterOnArticleAdded} from "context-prices-stats/ArticlesCounter/application/IncrementCounter/IncrementCounterOnArticleAdded";
 
 export class PricesStatsApp {
   #server: Server;
@@ -25,8 +28,12 @@ export class PricesStatsApp {
   // }
 
   async _registerSubscribers() {
-    // todo
-    // const eventBus: EventBus = (container.get('Shared.EventBus'): any);
+    const eventBus: EventBus = (container.get('Shared.EventBus'): any);
+    await eventBus.start();
+    const domainEventMapping = new DomainEventMapping([new IncrementCounterOnArticleAdded()]);
+    eventBus.setDomainEventMapping(domainEventMapping);
+    //todo continue here
+
     // const subscriberDefinitions = container.findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>;
     // const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [];
     //
@@ -35,6 +42,5 @@ export class PricesStatsApp {
     //
     // eventBus.setDomainEventMapping(domainEventMapping);
     // eventBus.addSubscribers(subscribers);
-    // await eventBus.start();
   }
 }
