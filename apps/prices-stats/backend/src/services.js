@@ -6,6 +6,6 @@ const loader = new YamlFileLoader(container);
 const env = process.env.NODE_ENV || 'development';
 
 loader.load(`${__dirname}/../config/services/application_${env}.yaml`);
-
+container.compile();
 
 export default container;

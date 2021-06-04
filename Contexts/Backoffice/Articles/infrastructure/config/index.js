@@ -1,7 +1,7 @@
 // @flow
 
 import convict from 'convict';
-
+// todo define env vars :)
 const priceStatsConfig: any = convict({
     env: {
         doc: 'The application environment.',

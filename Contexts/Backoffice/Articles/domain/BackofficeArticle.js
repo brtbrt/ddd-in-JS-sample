@@ -7,6 +7,8 @@ import {BackofficeArticleId} from "./BackofficeArticleId";
 import {BackofficeArticleName} from "./BackofficeArticleName";
 import {BackofficeArticleUpc} from "./BackofficeArticleUpc";
 import {BackofficeArticleCreatedDomainEvent} from "./BackofficeArticleCreatedDomainEvent";
+import type {PublishableDomainEvent} from "context-shared/domain/PublishableDomainEvent";
+import type {DomainEventInterface} from "context-shared/domain/DomainEventInterface";
 
 export default class BackofficeArticle implements AggregateRoot {
     #id: BackofficeArticleId;
@@ -23,11 +25,11 @@ export default class BackofficeArticle implements AggregateRoot {
         this.#domainEvents = new AggregateEvents();
     }
 
-    pullDomainEvents(): Array<DomainEvent> {
+    pullDomainEvents(): Array<PublishableDomainEvent & DomainEventInterface> {
         return this.#domainEvents.pullDomainEvents();
     }
 
-    record(event: DomainEvent): void {
+    record(event: PublishableDomainEvent & DomainEventInterface): void {
         this.#domainEvents.record(event);
     }
 

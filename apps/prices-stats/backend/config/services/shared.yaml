@@ -27,5 +27,6 @@ services:
     arguments: ['@Shared.DomainEventMapping']
 
   Shared.EventBus:
-    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
-    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig', '@Shared.DomainEventJsonDeserializer', '!tagged domainEventSubscriber']
+    synthetic: true
+#    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
+#    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig', '@Shared.DomainEventJsonDeserializer']

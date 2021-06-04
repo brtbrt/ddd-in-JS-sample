@@ -16,9 +16,14 @@ services:
       class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/EventBus/RabbitMq/RabbitMqConfigFactory
       method: 'createConfig'
 
+  PriceStats.articleCounter.ArticlesCounterIncrementer:
+    class: ../../../Contexts/PricesStats/ArticlesCounter/application/IncrementCounter/ArticlesCounterIncrementer
+    arguments: ['@PricesStats.articlesCounter.ArticlesCounterRepository', '@Shared.EventBus']
 
   PricesStats.articlesCounter.IncrementCounterOnArticleAdded:
     class: ../../../Contexts/PricesStats/ArticlesCounter/application/IncrementCounter/IncrementCounterOnArticleAdded
+    arguments: ['@PriceStats.articleCounter.ArticlesCounterIncrementer']
     tags:
       - { name: 'domainEventSubscriber' }
+
 
