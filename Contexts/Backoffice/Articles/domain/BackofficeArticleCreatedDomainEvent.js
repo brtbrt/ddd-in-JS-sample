@@ -16,7 +16,7 @@ export class BackofficeArticleCreatedDomainEvent extends DomainEvent implements 
     #upc: string;
 
     static get EVENT_NAME(): string {
-        return 'course.created';
+        return 'backoffice.course.created';
     };
 
     get EVENT_NAME(): string {

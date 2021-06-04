@@ -18,6 +18,14 @@ services:
       method: 'createClient'
     arguments: ['prices-stats-backend', '@Shared.PostgresConfig']
 
+  Shared.DomainEventMapping:
+    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/DomainEventMapping
+    arguments: ['!tagged domainEventSubscriber']
+
+  Shared.DomainEventJsonDeserializer:
+    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/DomainEventJsonDeserializer
+    arguments: ['@Shared.DomainEventMapping']
+
   Shared.EventBus:
     class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
-    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig']
+    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig', '@Shared.DomainEventJsonDeserializer', '!tagged domainEventSubscriber']

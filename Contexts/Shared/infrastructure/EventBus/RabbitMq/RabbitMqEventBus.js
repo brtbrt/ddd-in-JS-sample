@@ -5,8 +5,6 @@ import type {EventBus} from "../../../domain/EventBus";
 import type {RabbitMqConfig} from "./RabbitMqConfig";
 import type {DomainEventInterface} from "../../../domain/DomainEventInterface";
 import {DomainEventJsonDeserializer} from "./DomainEventJsonDeserializer";
-import {DomainEventMapping} from "./DomainEventMapping";
-import {IncrementCounterOnArticleAdded} from "context-prices-stats/ArticlesCounter/application/IncrementCounter/IncrementCounterOnArticleAdded";
 import type {DomainEventSubscriber} from "../../../domain/DomainEventSubscriber";
 import type {PublishableDomainEvent} from "../../../domain/PublishableDomainEvent";
 import type {ListenedDomainEvent, ListenedDomainEventClass} from "../../../domain/ListenedDomainEvent";
@@ -15,49 +13,83 @@ export default class RabbitMqEventBus implements EventBus {
     #connection: Promise<Connection>;
     #channel: Promise<Channel>;
     #exchange: Promise<ExchangeOk>;
-    #deserializer: ?DomainEventJsonDeserializer;
-    #subscribers: Map<string, DomainEventSubscriber<ListenedDomainEvent>>;
+    #deserializer: DomainEventJsonDeserializer;
+    #subscribers: Map<string, Array<DomainEventSubscriber<ListenedDomainEvent>>>;
+    #config: RabbitMqConfig;
 
-    constructor(config: RabbitMqConfig) {
+    constructor(config: RabbitMqConfig, domainEventJsonDeserializer: DomainEventJsonDeserializer, subscribers: Array<DomainEventSubscriber<ListenedDomainEvent>>) {
         this.#connection = connect(`amqp://${config.user}:${config.password}@${config.host}`);
-        this.#connection.then((connection: Connection) => {
-            connection.createChannel().then((channel: Channel) => {
-                this.#channel = Promise.resolve(channel);
-                this.#exchange = channel.assertExchange(config.exchange, 'fanout', {durable: false})
-            });
-        }).catch((err) => {
-            console.log('error ', err);
-        });
+console.log(config);
+        this.#channel = new Promise(async (resolve, reject) => {
+                const conn = await this.#connection;
+                const channel = await conn.createChannel();
+                await channel.assertExchange(config.exchange, 'fanout', {durable: false});
 
-        const subscriber = new IncrementCounterOnArticleAdded();
-        this.#subscribers = new Map();
+                resolve(channel);
+            }
+        );
+// todo log reject
 
-        subscriber.subscribedTo().forEach((subscribedTo: ListenedDomainEventClass) => {
-            this.#subscribers.set(subscribedTo.EVENT_NAME, subscriber);
-        });
+        this.#deserializer = domainEventJsonDeserializer;
+        this.#subscribers = this._mapSubscribers(subscribers);
+        this.#config = config;
     }
 
     async start(): Promise<void> {
+        const channel: Channel = await this.#channel;
+        // const {exchange} = await this.#exchange;
+        console.log('-----');
         // todo continue here
-        // const a: DomainEventSubscriber<DomainEventInterface> = (new IncrementCounterOnArticleAdded(): any);
+        const queue = await channel.assertQueue('', {exclusive: true});
+
+
+        await channel.bindQueue(queue.queue, this.#config.exchange, '');
+        await channel.consume(queue.queue, async (message) => {
+                    if (!message) {
+                        return;
+                    }
+
+                    const event = this.#deserializer.deserialize(message.content.toString());
+            console.log('event:');
+                    console.log(event);
+
+                    if (event) {
+                        const subscribers = this.#subscribers.get(event.eventName);
+
+console.log(subscribers);
+                        if (subscribers && subscribers.length) {
+                            const subscribersNames = subscribers.map((subscriber: DomainEventSubscriber<ListenedDomainEvent>) => subscriber.constructor.name);
+
+                            console.log(`[RabbitMqEventBus] Message processed: ${event.eventName} by ${subscribersNames.toString()}`);
+
+                            const subscribersExecutions = subscribers.map(subscriber => subscriber.on(event));
+                            await Promise.all(subscribersExecutions);
+                        }
+                    }
+                    // await channel.ack(message);
+        }, {noAck: true})
+
+        console.log('-----');
 
         return Promise.resolve();
     }
 
-    setDomainEventMapping(domainEventMapping: DomainEventMapping): void {
-        this.#deserializer = new DomainEventJsonDeserializer(domainEventMapping);
-        // todo continue here
-        const event = this.#deserializer.deserialize('{"data":{"attributes": {"id": "aaa", "name": "nome", "upc": "upc-code"}, "ocurred_on": "12 April 2021", "type": "backoffice.course.created"}}');
-        console.log(event?.aggregateId);
-        if (!event)
-            return;
+    _mapSubscribers(subscribers: Array<DomainEventSubscriber<ListenedDomainEvent>>) :Map<string, Array<DomainEventSubscriber<ListenedDomainEvent>>> {
+        const newSubscribers = new Map();
 
-        this.#subscribers.get(event.eventName)?.on(event);
+        subscribers?.forEach((subscriber) => {
+            subscriber.subscribedTo().forEach((subscribedTo: ListenedDomainEventClass) => {
+                const newAddedSubscribers = newSubscribers.get(subscribedTo.EVENT_NAME) ?? [];
+                newAddedSubscribers.push(subscriber)
+                newSubscribers.set(subscribedTo.EVENT_NAME, newAddedSubscribers);
+            });
+        });
+        
+        return newSubscribers;
     }
     
     async publish(events: Array<PublishableDomainEvent & DomainEventInterface>): Promise<void> {
         const channel = await this.#channel
-        const {exchange} = await this.#exchange;
 
         events.map(event => {
             const message = {
@@ -70,7 +102,7 @@ export default class RabbitMqEventBus implements EventBus {
                 meta: {}
             };
 
-            channel.publish(exchange, '', Buffer.from(message.toString()));
+            channel.publish(this.#config.exchange, '', Buffer.from(JSON.stringify(message)));
         });
     }
 

@@ -15,7 +15,9 @@ export class DomainEventJsonDeserializer {
         const eventData = JSON.parse(event).data;
         const eventName = eventData.type;
         const eventClass = this.#mapping.for(eventName);
-
+console.log('------!!!!');
+        console.log(eventData);
+        console.log(eventClass);
         if (!eventClass) {
             return;
         }

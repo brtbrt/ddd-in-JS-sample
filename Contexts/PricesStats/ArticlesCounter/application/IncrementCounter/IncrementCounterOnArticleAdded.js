@@ -14,9 +14,10 @@ export class IncrementCounterOnArticleAdded implements DomainEventSubscriber<Bac
     }
 
     async on(domainEvent: BackofficeArticleCreatedEvent): Promise<void> {
-        // todo continue here :)
+        // todo continue here!!!! command bus for incrementing etc... :)
         const { aggregateId, name, upc } = domainEvent;
-        
+
+
         console.log('received event> ' + aggregateId + '  ' + name + '   ' + upc);
         // todo continue here
         // return this.creator.run(aggregateId, duration, name);

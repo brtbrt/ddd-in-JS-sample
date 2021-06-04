@@ -7,4 +7,4 @@ export interface ListenedDomainEventName {
 }
 
 export type ListenedDomainEvent = ListenedDomainEventName & DomainEventInterface;
-export type ListenedDomainEventClass = ListenedDomainEventName & { fromPrimitives(...args: any[]): DomainEventInterface; };
+export type ListenedDomainEventClass = ListenedDomainEventName & { fromPrimitives(...args: any[]): ListenedDomainEvent; };

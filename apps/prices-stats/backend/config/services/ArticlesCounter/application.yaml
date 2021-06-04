@@ -15,3 +15,10 @@ services:
     factory:
       class: ../../../Contexts/PricesStats/ArticlesCounter/infrastructure/EventBus/RabbitMq/RabbitMqConfigFactory
       method: 'createConfig'
+
+
+  PricesStats.articlesCounter.IncrementCounterOnArticleAdded:
+    class: ../../../Contexts/PricesStats/ArticlesCounter/application/IncrementCounter/IncrementCounterOnArticleAdded
+    tags:
+      - { name: 'domainEventSubscriber' }
+
