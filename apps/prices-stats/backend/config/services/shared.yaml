@@ -28,5 +28,4 @@ services:
 
   Shared.EventBus:
     synthetic: true
-#    class: ../../Contexts/Shared/infrastructure/EventBus/RabbitMq/RabbitMqEventBus
-#    arguments: ['@PricesStats.articlesCounter.RabbitMqConfig', '@Shared.DomainEventJsonDeserializer']
+

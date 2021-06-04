@@ -15,7 +15,7 @@ export class PricesStatsApp {
     console.log('listening to ' + port);
     this.#server = new Server(port);
 
-    await this._registerSubscribers();
+    await this._setupEventBus();
 
     return this.#server.listen();
   }
@@ -29,7 +29,7 @@ export class PricesStatsApp {
   //     return this.server?.getHTTPServer();
   // }
 
-  async _registerSubscribers() {
+  async _setupEventBus() {
     const subscribers = [];
     const taggedServices = container.findTaggedServiceIds('domainEventSubscriber');
     for (const definition of taggedServices.values()) {
@@ -43,19 +43,5 @@ export class PricesStatsApp {
 
     const eventBus: EventBus = (container.get('Shared.EventBus'): any);
     await eventBus.start();
-
-    const domainEventMapping: DomainEventMapping = (container.get('Shared.DomainEventMapping'): any);
-
-    // eventBus.setDomainEventMapping(domainEventMapping);
-    //todo continue here
-
-    // const subscriberDefinitions = container.findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>;
-    // const subscribers: Array<DomainEventSubscriber<DomainEvent>> = [];
-    //
-    // subscriberDefinitions.forEach((value: any, key: any) => subscribers.push(container.get(key)));
-    // const domainEventMapping = new DomainEventMapping(subscribers);
-    //
-    // eventBus.setDomainEventMapping(domainEventMapping);
-    // eventBus.addSubscribers(subscribers);
   }
 }
