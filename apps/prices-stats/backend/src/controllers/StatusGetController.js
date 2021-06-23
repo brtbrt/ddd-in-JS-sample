@@ -4,7 +4,8 @@ import { Controller } from './Controller';
 
 export default class StatusGetController implements Controller {
   async run(req: express$Request, res: express$Response) {
-    res.json('OK!');
-    res.status(httpStatus.OK).send();
+    console.log(">>>>>>");
+    res.status(httpStatus.OK);
+    res.json({status: 'OK!'}).send();
   }
 }

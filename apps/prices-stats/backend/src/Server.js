@@ -37,8 +37,32 @@ export class Server {
       cert: readFileSync(`${__dirname}/../config/certs/localhost-cert.pem`),
     };
 
+
+    // {
+    //   spdy?: {
+    //     protocols?: server$Protocol[],
+    //     plain?: boolean,
+    //     "x-forwarded-for"?: boolean,
+    //     connection?: {
+    //       windowSize?: number,
+    //       autoSpdy31?: boolean,
+    //       ...
+    //     },
+    //     ...
+    //   },
+    // ...
+    // } & https.ServerOptions
+
+    const newOptions = {
+      spdy: {
+        protocols: ['http/1.1'],
+        plain: true,
+        ssl: false
+      }
+    };
+
     return new Promise((resolve) => {
-      this.#httpServer = spdy.createServer(options, this.#express);
+      this.#httpServer = spdy.createServer(newOptions, this.#express);
       this.#httpServer.listen(this.#port, () => {
         console.log(`  Backend App is running ${env} mode`);
         console.log('  Press CTRL-C to stop\n');

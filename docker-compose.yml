@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  api-gateway:
+    image: devopsfaith/krakend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./apps/krakend/krakend.json:/etc/krakend/krakend.json
+    command: run -d --config /etc/krakend/krakend.json
   app-backoffice-backend:
     build: ./apps/backoffice/backend
     ports:
@@ -16,6 +23,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - api-gateway
   app-prices-stats-backend:
     build: ./apps/prices-stats/backend
     ports:
@@ -31,6 +39,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - api-gateway
   db:
     image: postgres
     restart: always

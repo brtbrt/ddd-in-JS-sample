@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "host": [
+    "http://app-prices-stats-backend:3000"
+  ],
+  "extra_config": {
+    "github_com/devopsfaith/krakend-gologging": {
+      "level": "DEBUG",
+      "prefix": "[KRAKEND]",
+      "syslog": false,
+      "stdout": true
+    },
+    "github_com/devopsfaith/krakend-cors": {
+      "allow_origins": [
+        "http://localhost:8080",
+        "http://localhost:3000",
+        "http://192.168.99.100:3000"
+      ],
+      "allow_methods": [
+        "POST",
+        "GET"
+      ],
+      "allow_headers": [
+        "Origin",
+        "Authorization",
+        "Content-Type"
+      ],
+      "expose_headers": [
+        "Content-Length"
+      ],
+      "max_age": "12h"
+    },
+    "github_com/devopsfaith/bloomfilter": {
+      "N": 10000000,
+      "P": 1e-7,
+      "HashName": "optimal",
+      "TTL": 1500,
+      "port": 1234,
+      "TokenKeys": [
+        "jti"
+      ]
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/app-prices-stats-backend",
+      "backend": [
+        {
+          "host": [
+            "http://app-prices-stats-backend:3000"
+          ],
+          "url_pattern": "/status",
+          "whitelist": [],
+          "mapping": {},
+          "group": "",
+          "extra_config": {},
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {}
+    }
+  ]
+}
